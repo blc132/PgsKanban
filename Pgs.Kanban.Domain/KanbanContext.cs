@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Pgs.Kanban.Domain.Models;
 
 namespace Pgs.Kanban.Domain
