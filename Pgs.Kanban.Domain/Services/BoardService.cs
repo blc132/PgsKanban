@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Pgs.Kanban.Domain.Dtos;
 using Pgs.Kanban.Domain.Models;
@@ -21,7 +18,7 @@ namespace Pgs.Kanban.Domain.Services
         {
             var board = _context.Boards
                 .Include(b => b.Lists)
-                .FirstOrDefault();
+                .LastOrDefault();
 
             if (board == null)
             {
