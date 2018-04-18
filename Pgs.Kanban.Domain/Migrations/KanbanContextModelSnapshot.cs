@@ -2,6 +2,11 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.EntityFrameworkCore.Storage.Internal;
+using Pgs.Kanban.Domain;
+using System;
 
 namespace Pgs.Kanban.Domain.Migrations
 {
@@ -28,6 +33,23 @@ namespace Pgs.Kanban.Domain.Migrations
                     b.ToTable("Boards");
                 });
 
+            modelBuilder.Entity("Pgs.Kanban.Domain.Models.Card", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("ListId");
+
+                    b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ListId");
+
+                    b.ToTable("Cards");
+                });
+
             modelBuilder.Entity("Pgs.Kanban.Domain.Models.List", b =>
                 {
                     b.Property<int>("Id")
@@ -43,6 +65,14 @@ namespace Pgs.Kanban.Domain.Migrations
                     b.HasIndex("BoardId");
 
                     b.ToTable("Lists");
+                });
+
+            modelBuilder.Entity("Pgs.Kanban.Domain.Models.Card", b =>
+                {
+                    b.HasOne("Pgs.Kanban.Domain.Models.List", "List")
+                        .WithMany()
+                        .HasForeignKey("ListId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Pgs.Kanban.Domain.Models.List", b =>

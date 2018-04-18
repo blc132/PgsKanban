@@ -46,7 +46,6 @@ namespace Pgs.Kanban.Api.Controllers
             {
                 return BadRequest();
             }
-
             return NoContent();
         }
 

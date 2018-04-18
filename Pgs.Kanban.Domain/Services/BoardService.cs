@@ -18,6 +18,7 @@ namespace Pgs.Kanban.Domain.Services
         {
             var board = _context.Boards
                 .Include(b => b.Lists)
+                .ThenInclude(x => x.Cards)
                 .LastOrDefault();
 
             if (board == null)
