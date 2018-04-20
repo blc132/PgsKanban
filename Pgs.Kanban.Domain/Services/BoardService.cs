@@ -34,7 +34,13 @@ namespace Pgs.Kanban.Domain.Services
                 {
                     Id = l.Id,
                     BoardId = l.BoardId,
-                    Name = l.Name
+                    Name = l.Name,
+                    Cards = l.Cards.Select(c => new CardDto()
+                    {
+                        Id = c.Id,
+                        ListId = c.ListId,
+                        Name = c.Name,
+                    }).ToList(),
                 }).ToList()
             };
 
