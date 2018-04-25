@@ -38,6 +38,8 @@ namespace Pgs.Kanban.Domain.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("Description");
+
                     b.Property<int>("ListId");
 
                     b.Property<string>("Name")
@@ -70,7 +72,7 @@ namespace Pgs.Kanban.Domain.Migrations
             modelBuilder.Entity("Pgs.Kanban.Domain.Models.Card", b =>
                 {
                     b.HasOne("Pgs.Kanban.Domain.Models.List", "List")
-                        .WithMany()
+                        .WithMany("Cards")
                         .HasForeignKey("ListId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

@@ -11,7 +11,7 @@ using System;
 namespace Pgs.Kanban.Domain.Migrations
 {
     [DbContext(typeof(KanbanContext))]
-    [Migration("20180418173503_Card")]
+    [Migration("20180425183208_Card")]
     partial class Card
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -38,6 +38,8 @@ namespace Pgs.Kanban.Domain.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Description");
 
                     b.Property<int>("ListId");
 
@@ -71,7 +73,7 @@ namespace Pgs.Kanban.Domain.Migrations
             modelBuilder.Entity("Pgs.Kanban.Domain.Models.Card", b =>
                 {
                     b.HasOne("Pgs.Kanban.Domain.Models.List", "List")
-                        .WithMany()
+                        .WithMany("Cards")
                         .HasForeignKey("ListId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

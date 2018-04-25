@@ -24,11 +24,17 @@ namespace Pgs.Kanban.Domain.Services
             var card = new Card
             {
                 Name = addCardDto.Name,
-                ListId = addCardDto.ListId
+                ListId = addCardDto.ListId,
+                Description = ""
             };
 
             _context.Cards.Add(card);
-            _context.SaveChanges();
+           var resultOfAdding = _context.SaveChanges();
+
+            if (resultOfAdding == 0)
+            {
+                return null;
+            }
 
             var cardDto = new CardDto
             {
@@ -38,6 +44,16 @@ namespace Pgs.Kanban.Domain.Services
             };
 
             return cardDto;
+        }
+
+        public bool EditDescription(EditCardDescriptionDto editCardDescriptionDto)
+        {
+            if (!_context.Lists.Any(x => x.Id == editCardDescriptionDto.Id))
+            {
+                return false;
+            }
+
+            var card = _context.Cards 
         }
     }
 }

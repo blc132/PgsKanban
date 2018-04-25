@@ -27,11 +27,49 @@ namespace Pgs.Kanban.Api.Controllers
 
             if (result == null)
             {
-                Console.WriteLine("XD");
                 return BadRequest();
             }
 
             return Ok(result);
         }
+
+        [HttpPut]
+        public IActionResult EditCardDescription([FromBody] EditCardDto editCardDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var result = _cardService.EditDescription(editCardDto);
+
+            if (result == null)
+            {
+                return BadRequest();
+            }
+
+            return Ok(result);
+        }
+
+        //[HttpPost]
+        //public IActionResult EditCard([FromBody] EditCardDto editCardDto)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest();
+        //    }
+
+        //   // var result = _cardService.AddCard(editCardDto);
+
+        //    if (result == null)
+        //    {
+        //        return BadRequest();
+        //    }
+
+        //    return Ok(result);
+        //}
     }
+
+
 }
+

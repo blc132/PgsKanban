@@ -32,23 +32,22 @@ namespace Pgs.Kanban.Api.Controllers
             return Ok(result);
         }
 
-        [HttpPut]
-        public IActionResult EditListName([FromBody] EditListNameDto editListNameDto)
+        public IActionResult DeleteList([FromBody] DeleteListDto deleteListDto)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest();
             }
 
-            var result = _listService.EditListName(editListNameDto);
+            var result = _listService.DeleteList(deleteListDto);
 
             if (!result)
             {
                 return BadRequest();
             }
+
             return NoContent();
         }
-
     }
 }
 
