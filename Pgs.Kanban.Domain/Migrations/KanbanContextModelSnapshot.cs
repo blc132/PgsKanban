@@ -42,8 +42,7 @@ namespace Pgs.Kanban.Domain.Migrations
 
                     b.Property<int>("ListId");
 
-                    b.Property<string>("Name")
-                        .IsRequired();
+                    b.Property<string>("Name");
 
                     b.HasKey("Id");
 

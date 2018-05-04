@@ -5,10 +5,11 @@ using System.Text;
 
 namespace Pgs.Kanban.Domain.Dtos
 {
-    public class EditListNameDto
+    public class EditListDto
     {
-        public string Name { get; set; }
-        public int ListId { get; set; }
+        [Required]
         public int BoardId { get; set; }
+        [Required]
+        public string Name { get; set; }
     }
 }

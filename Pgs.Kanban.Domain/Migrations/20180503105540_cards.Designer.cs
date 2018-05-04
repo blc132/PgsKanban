@@ -11,8 +11,8 @@ using System;
 namespace Pgs.Kanban.Domain.Migrations
 {
     [DbContext(typeof(KanbanContext))]
-    [Migration("20180425183208_Card")]
-    partial class Card
+    [Migration("20180503105540_cards")]
+    partial class cards
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -43,8 +43,7 @@ namespace Pgs.Kanban.Domain.Migrations
 
                     b.Property<int>("ListId");
 
-                    b.Property<string>("Name")
-                        .IsRequired();
+                    b.Property<string>("Name");
 
                     b.HasKey("Id");
 

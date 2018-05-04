@@ -16,7 +16,7 @@ namespace Pgs.Kanban.Domain.Services
 
         public CardDto AddCard(AddCardDto addCardDto)
         {
-            if (!_context.Lists.Any(x => x.Id == addCardDto.ListId))
+            if (!ListExists(addCardDto.ListId))
             {
                 return null;
             }
@@ -24,12 +24,11 @@ namespace Pgs.Kanban.Domain.Services
             var card = new Card
             {
                 Name = addCardDto.Name,
-                ListId = addCardDto.ListId,
-                Description = ""
+                ListId = addCardDto.ListId
             };
 
             _context.Cards.Add(card);
-           var resultOfAdding = _context.SaveChanges();
+            var resultOfAdding = _context.SaveChanges();
 
             if (resultOfAdding == 0)
             {
@@ -46,14 +45,56 @@ namespace Pgs.Kanban.Domain.Services
             return cardDto;
         }
 
-        public bool EditDescription(EditCardDescriptionDto editCardDescriptionDto)
+        public bool EditCard(EditCardDto editCardDto)
         {
-            if (!_context.Lists.Any(x => x.Id == editCardDescriptionDto.Id))
+            var card = GetCard(editCardDto.Id);
+            if (card == null)
             {
                 return false;
             }
 
-            var card = _context.Cards 
+            card.Name = editCardDto.Name;
+            _context.Entry(card).State = EntityState.Modified;
+
+            var result = _context.SaveChanges();
+            return result > 0;
+        }
+
+        public bool DeleteCard(int id)
+        {
+            var card = GetCard(id);
+            if (card == null)
+            {
+                return false;
+            }
+
+            _context.Cards.Remove(card);
+            var result = _context.SaveChanges();
+            return result > 0;
+        }
+
+        private bool ListExists(int id)
+        {
+            return _context.Lists.Any(x => x.Id == id);
+        }
+
+        public Card GetCard(int id)
+        {
+            var card = _context.Cards.FirstOrDefault(x => x.Id == id);
+            return card;
+        }
+
+        public bool EditDescription(EditCardDescriptionDto editCardDescriptionDto)
+        {
+            var card = _context.Cards.FirstOrDefault(x => x.Id == editCardDescriptionDto.Id);
+            if (card == null)
+            {
+                return false;
+            }
+            card.Description = editCardDescriptionDto.Description;
+            _context.Update(card);
+            _context.SaveChanges();
+            return true;
         }
     }
 }
