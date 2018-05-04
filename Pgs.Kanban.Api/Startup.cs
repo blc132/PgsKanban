@@ -12,7 +12,6 @@ namespace Pgs.Kanban.Api
         {
             services.AddCors();
             services.AddMvc();
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

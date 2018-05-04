@@ -56,7 +56,7 @@ namespace Pgs.Kanban.Api.Controllers
             return NoContent();
         }
 
-        [HttpPut]
+        [HttpPut("desc")]
         public IActionResult EditCardDescription([FromBody] EditCardDescriptionDto editCardDescriptionDto)
         {
             if (!ModelState.IsValid)
